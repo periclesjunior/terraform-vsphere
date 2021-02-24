@@ -37,7 +37,8 @@ data "vsphere_virtual_machine" "template" {
 }
 
 resource "vsphere_virtual_machine" "vm" {
-  name                       = var.vsphere_virtual_machine_name
+  count                      = var.vsphere_virtual_machine_count
+  name                       = format("${var.vsphere_virtual_machine_name}-%03d", count.index+1)
   resource_pool_id           = data.vsphere_resource_pool.pool.id
   datastore_id               = data.vsphere_datastore.datastore.id
   num_cpus                   = var.vsphere_virtual_machine_cpus
@@ -70,7 +71,7 @@ resource "vsphere_virtual_machine" "vm" {
       }
 
       network_interface {
-        ipv4_address = var.vsphere_virtual_machine_ip
+        ipv4_address = element(var.vsphere_virtual_machine_ip,count.index)
         ipv4_netmask = var.vsphere_virtual_machine_netmask
       }
 
