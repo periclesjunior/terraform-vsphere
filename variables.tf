@@ -38,6 +38,10 @@ variable "vsphere_virtual_machine_name" {
   description = "The name of the vSphere virtual machines and the hostname of the machine"
 }
 
+variable "vsphere_virtual_machine_count" {
+  description = "Number of VMs"
+}
+
 variable "vsphere_virtual_machine_cpus" {
   description = "Number of vCPU for the vSphere virtual machines"
 }
@@ -52,6 +56,7 @@ variable "vsphere_virtual_machine_domain" {
 
 variable "vsphere_virtual_machine_ip" {
   description = "Ip used for the vSpgere virtual machine"
+  type = list(string)
 }
 
 variable "vsphere_virtual_machine_netmask" {
